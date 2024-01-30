@@ -7,8 +7,10 @@ public class DP3 {
         int[] dp = new int[nums.size()+1];
         Arrays.fill(dp,-1);
         int n = nums.size();
-        //return getMaxSum(nums,n-1,dp);
-        return getMaxSum2(nums,n-1);
+        int result1 = getMaxSum(nums,n-1,dp);
+        int result2 = getMaxSum2(nums,n-1);
+        System.out.println(result1+" "+result2);
+        return result1;
     }
 
     public static int getMaxSum(ArrayList<Integer> nums , int n , int[] dp)
@@ -16,7 +18,7 @@ public class DP3 {
         if(n==0) return nums.get(n);
         if(n<0) return 0;
         if(dp[n]!=-1) return dp[n];
-
+        
         int pick =nums.get(n)+getMaxSum(nums,n-2,dp);
         int not_pick = getMaxSum(nums,n-1,dp);
         dp[n]=Math.max(pick,not_pick);
@@ -28,7 +30,7 @@ public class DP3 {
     {
         int prev = nums.get(0);
         int prev2 = 0;
-        int curr = 0;
+        //int curr = 0;
         for(int i=1;i<n;i++)
         {
             int take = nums.get(i);
@@ -36,7 +38,7 @@ public class DP3 {
                 take+= prev2;
             }
             int dont_take = prev;
-            curr=Math.max(take,dont_take);
+            int curr=Math.max(take,dont_take);
             prev2= prev;
             prev=curr;
         }
